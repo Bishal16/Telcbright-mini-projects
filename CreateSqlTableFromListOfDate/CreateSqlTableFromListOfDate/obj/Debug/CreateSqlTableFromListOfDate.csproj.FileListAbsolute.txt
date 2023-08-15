@@ -1,0 +1,7 @@
+C:\Users\Mahathir\Documents\Visual Studio 2015\Projects\CreateSqlTableFromListOfDate\CreateSqlTableFromListOfDate\obj\Debug\CreateSqlTableFromListOfDate.csprojResolveAssemblyReference.cache
+C:\Users\Mahathir\Documents\Visual Studio 2015\Projects\CreateSqlTableFromListOfDate\CreateSqlTableFromListOfDate\bin\Debug\CreateSqlTableFromListOfDate.exe.config
+C:\Users\Mahathir\Documents\Visual Studio 2015\Projects\CreateSqlTableFromListOfDate\CreateSqlTableFromListOfDate\bin\Debug\CreateSqlTableFromListOfDate.exe
+C:\Users\Mahathir\Documents\Visual Studio 2015\Projects\CreateSqlTableFromListOfDate\CreateSqlTableFromListOfDate\bin\Debug\CreateSqlTableFromListOfDate.pdb
+C:\Users\Mahathir\Documents\Visual Studio 2015\Projects\CreateSqlTableFromListOfDate\CreateSqlTableFromListOfDate\bin\Debug\MySql.Data.dll
+C:\Users\Mahathir\Documents\Visual Studio 2015\Projects\CreateSqlTableFromListOfDate\CreateSqlTableFromListOfDate\obj\Debug\CreateSqlTableFromListOfDate.exe
+C:\Users\Mahathir\Documents\Visual Studio 2015\Projects\CreateSqlTableFromListOfDate\CreateSqlTableFromListOfDate\obj\Debug\CreateSqlTableFromListOfDate.pdb
