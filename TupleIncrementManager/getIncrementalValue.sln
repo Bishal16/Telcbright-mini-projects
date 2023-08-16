@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "getIncrementalValue", "getIncrementalValue\getIncrementalValue.csproj", "{7DB917CA-AD4F-4451-B200-1EB0BD6CC4C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TupleIncrementManager", "getIncrementalValue\TupleIncrementManager.csproj", "{7DB917CA-AD4F-4451-B200-1EB0BD6CC4C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
