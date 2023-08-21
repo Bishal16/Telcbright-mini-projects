@@ -12,11 +12,12 @@ namespace GetIncrementalValue
     {
         static void Main(string[] args)
         {
-            string tuple = "Mustafa";
-            GetIncrementalValue (tuple);
+            string tuple = "Modon22";
+            int defaultValue = 1000;
+            GetIncrementalValue (tuple, defaultValue);
         }
 
-        static void GetIncrementalValue(string tuple)
+        static void GetIncrementalValue(string tuple, int defaultValue)
         {
             string connectionString = "server=localhost;user=root;password=;database=testdb;";
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -46,7 +47,7 @@ namespace GetIncrementalValue
             else{
                 reader.Close();
                 string insertSQL = $@"  insert into testTable 
-                                        values ( '{tuple}', {1}); ";
+                                        values ( '{tuple}', {defaultValue}); ";
                 MySqlCommand updateCmd = new MySqlCommand(insertSQL, connection);
                 reader.Close();
                 updateCmd.ExecuteNonQuery();
