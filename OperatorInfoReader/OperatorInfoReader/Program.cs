@@ -10,15 +10,15 @@ class Program
     {
         string fileLocation = "C:/Users/Mahathir/Documents/Visual Studio 2015/Projects/Telcbright-mini-projects/OperatorInfoReader/OperatorInfoReader/bin/Debug/Book1.xlsx";
 
-        List<List<string>> AllRows = parseExcellRows(fileLocation);
-        Dictionary<string, List<string>> operatorInfoDict = convertRowsToDict(AllRows);
+        List<string[]> AllRows = parseExcellRows(fileLocation);
+        //Dictionary<string, List<string[]> operatorInfoDict = convertRowsToDict(AllRows);
         ;
     }
 
-    static List<List<string>> parseExcellRows(string fileLocation)
+    static List<string[]> parseExcellRows(string fileLocation)
     {
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;        
-        List<List<string>> AllRows = new List<List<string>>();
+        List<string[]> AllRows = new List<string[]>();
 
         using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(fileLocation)))
         {
@@ -28,7 +28,7 @@ class Program
            
             for (int rowNum = 1; rowNum <= rowCount; rowNum++)
             {
-                List<string> rowi = myWorksheet.Cells[rowNum, 1, rowNum, columnCount].Select(c => c.Value == null ? string.Empty : c.Value.ToString()).ToList();
+                string[] rowi = myWorksheet.Cells[rowNum, 1, rowNum, columnCount].Select(c => c.Value == null ? string.Empty : c.Value.ToString()).ToArray();
                 AllRows.Add(rowi);
             }
         }
