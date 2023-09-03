@@ -5,7 +5,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        string excelFilePath = "C:/Users/Mahathir/Documents/Visual Studio 2015/Projects/Telcbright-mini-projects/excel file reder/excel file reder/bin/Debug/Day-To-Day_Expenses (1)(2).xlsx"; // Replace with the actual path to your Excel file
+        string excelFilePath = "C:/Users/Mahathir/Documents/Visual Studio 2015/Projects/Telcbright-mini-projects/excel file reder/excel file reder/bin/Debug/Day-To-Day_Expenses (2).xlsx"; // Replace with the actual path to your Excel file
 
         Application excelApp = new Application();
         Workbook workbook = excelApp.Workbooks.Open(excelFilePath);
@@ -38,8 +38,11 @@ class Program
             //Console.WriteLine(string.Join("\t", row));
             if (Convert.ToString(row[1]).Contains("িম   িবল"))
             {
+                string mbc = Convert.ToString(row[1]);
+                mbc = mbc.Substring(mbc.Length - 2);
                 sum = sum + Convert.ToInt32(row[3]);
-                Console.WriteLine("MB " + count + " = " + Convert.ToInt32(row[3]));
+                DateTime dt = DateTime.FromOADate(Convert.ToInt32(row[0]));
+                Console.WriteLine("MB " + count + " " + mbc + "  Date:" + dt.Date + " = " + Convert.ToInt32(row[3]));
                 count++;
                 if (count == 32 && x == 0)
                 {
