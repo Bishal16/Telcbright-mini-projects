@@ -42,7 +42,7 @@ class Program
                 mbc = mbc.Substring(mbc.Length - 2);
                 sum = sum + Convert.ToInt32(row[3]);
                 DateTime dt = DateTime.FromOADate(Convert.ToInt32(row[0]));
-                Console.WriteLine("MB " + count + " " + mbc + "  Date:" + dt.Date + " = " + Convert.ToInt32(row[3]));
+                Console.WriteLine("Mistri Bill: Day - " + count + " "  + "  Date:" + dt.Date + " = " + Convert.ToInt32(row[3]));
                 count++;
                 if (count == 32 && x == 0)
                 {
@@ -50,7 +50,7 @@ class Program
                 }
             }
         }
-        Console.WriteLine("Total = " + sum);
+        Console.WriteLine("\nTotal = " + sum + " Taka");
 
         // Close Excel application
         workbook.Close(false);
