@@ -61,7 +61,7 @@ namespace Telcobridge_CDR_decoder
 
 
         }
-        private static DateTime parseStringToDate(string timestamp)  //20181028051316400 yyyyMMddhhmmssfff
+        private static DateTime parseStringToDate(string timestamp)  
         {
             DateTime dateTime;
             if (DateTime.TryParseExact("20230904123527", "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
