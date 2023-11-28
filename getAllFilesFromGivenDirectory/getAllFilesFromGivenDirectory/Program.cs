@@ -9,9 +9,8 @@ namespace getAllFilesFromGivenDirectory
 {
     class Program
     {
-        public static void getZipFilesRecursively(string targetDir)
+        public static List<FileInfo> getZipFilesRecursively(string targetDir, List<FileInfo> fileInfoList)
         {
-            string[] subDirs = Directory.GetDirectories(targetDir);
             
             HashSet<string> extensions = new HashSet<string> { ".gz", ".7z", ".zip", ".tar" };
             string[] filePahts = Directory.GetFiles(targetDir);
@@ -20,27 +19,31 @@ namespace getAllFilesFromGivenDirectory
             {                
                 string fileName = Path.GetFileName(filePath);
                 string fileExt = Path.GetExtension(fileName);
+
+                FileInfo fileInfo = new FileInfo(filePath);
                 if (extensions.Contains(fileExt))
-                {
-                    processFile(fileName);      
+                {   
+                    fileInfoList.Add(fileInfo);
                 }
             }
-
+            string[] subDirs = Directory.GetDirectories(targetDir);
             foreach (string subDir in subDirs)
             {
-                getZipFilesRecursively(subDir);
+                getZipFilesRecursively(subDir, fileInfoList);
             }
-        }
-
-        private static void processFile(string fileName)
-        {
-            Console.WriteLine("File = " + fileName);
+            return fileInfoList;
         }
 
         static void Main(string[] args)
         {
             string targetDir = "C:/Users/Mahathir/Desktop/test";
-            getZipFilesRecursively(targetDir);
+            List<FileInfo> fileInfoList = new List<FileInfo>();
+            getZipFilesRecursively(targetDir, fileInfoList);
+            foreach(FileInfo info in fileInfoList)
+            {
+                Console.WriteLine(info);
+            }
+            ;
         }
     }
 }
