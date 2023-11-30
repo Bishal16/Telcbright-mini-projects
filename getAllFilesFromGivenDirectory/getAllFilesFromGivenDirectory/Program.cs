@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace getAllFilesFromGivenDirectory
 {
-    class Program
+    class FileMover
     {
-        public static List<FileInfo> getFilesInfoRecursively(string targetDir, List<FileInfo> fileInfoList)
+        private static HashSet<string> extensions = new HashSet<string> { ".gz", ".7z", ".zip", ".tar" };
+        
+
+        private static List<FileInfo> getFilesInfoRecursively(string parentDir, List<FileInfo> fileInfoList)
         {
-            
-            HashSet<string> extensions = new HashSet<string> { ".gz", ".7z", ".zip", ".tar" };
-            string[] filePahts = Directory.GetFiles(targetDir);
+            string[] filePahts = Directory.GetFiles(parentDir);
 
             foreach (string filePath in filePahts)
             {                
@@ -26,7 +27,8 @@ namespace getAllFilesFromGivenDirectory
                     fileInfoList.Add(fileInfo);
                 }
             }
-            string[] subDirs = Directory.GetDirectories(targetDir);
+
+            string[] subDirs = Directory.GetDirectories(parentDir);
             foreach (string subDir in subDirs)
             {
                 getFilesInfoRecursively(subDir, fileInfoList);
@@ -34,16 +36,35 @@ namespace getAllFilesFromGivenDirectory
             return fileInfoList;
         }
 
+
+        public static void moveFiles(string parentDir)
+        {
+            List<FileInfo> fileInfoList = new List<FileInfo>();
+            getFilesInfoRecursively(parentDir, fileInfoList);
+
+            foreach (FileInfo fileInfo in fileInfoList)
+            {
+                string originalFile = Path.Combine(fileInfo.DirectoryName, fileInfo.Name);
+                string tmpFile = Path.Combine(parentDir, fileInfo.Name + ".tmp");
+
+                File.Copy(originalFile, tmpFile);      // file copying here
+
+                FileInfo originalFileInfo = new FileInfo(originalFile);
+                FileInfo tempFileInfo = new FileInfo(tmpFile);
+
+                if (originalFileInfo.Length == tempFileInfo.Length)
+                {
+                    File.Delete(originalFile);          //deleting original file
+                    File.Move(tmpFile, tmpFile.Remove(tmpFile.Length - 4, 4));  //renaming tmp file to its original name
+                }
+            }  
+        }
         static void Main(string[] args)
         {
-            string targetDir = "C:/Users/Mahathir/Desktop/test";
-            List<FileInfo> fileInfoList = new List<FileInfo>();
-            getFilesInfoRecursively(targetDir, fileInfoList);
-            foreach(FileInfo info in fileInfoList)
-            {
-                Console.WriteLine(info);
-            }
-            ;
+            string parentDir = "C:/Users/Mahathir/Desktop/test";
+            //string targetDir = "C:/Users/Mahathir/Desktop/test";
+            moveFiles(parentDir);
+            
         }
     }
 }
