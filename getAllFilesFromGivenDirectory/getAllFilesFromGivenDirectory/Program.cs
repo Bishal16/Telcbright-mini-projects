@@ -117,6 +117,7 @@ namespace getAllFilesFromGivenDirectory
             //getFilesInfoRecursively(parentDir);
 
             //moveFiles(parentDir);
+
             VaultFileMover obj = new VaultFileMover("esdr", ".dat", parentDir);
             obj.moveFiles(parentDir, obj.CdrFileInfos);
         }
