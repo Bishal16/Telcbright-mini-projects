@@ -7,32 +7,72 @@ using OfficeOpenXml;
 using System.IO;
 using excel_parser;
 
-namespace PortalApp._myCodes
+namespace excel_pasrer
 {
     public class ExcelHelper
     {
-        public static List<DayWiseData> parseExcellRows(string fileLocation, int skipFirst)
+        //public static List<DayWiseData> parseExcellRows(string fileLocation, int skipFirst)
+        //{
+        //    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        //    List<DayWiseData> AllRows = new List<DayWiseData>();
+
+        //    using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(fileLocation)))
+        //    {
+        //        var myWorksheet = xlPackage.Workbook.Worksheets.First();
+        //        int rowCount = myWorksheet.Dimension.Rows;
+        //        int columnCount = myWorksheet.Dimension.Columns;
+
+        //        for (int rowNum = 1; rowNum <= rowCount; rowNum++)
+        //        {
+        //            string[] rowi = myWorksheet.Cells[rowNum, 1, rowNum, columnCount].Select(c => c.Value == null ? string.Empty : c.Value.ToString()).ToArray();
+        //            if(rowi.Length < 8 || rowNum <= skipFirst)                    
+        //                continue;
+
+        //            DayWiseData data = new DayWiseData(rowi);
+        //            AllRows.Add(data);
+        //        }
+        //    }
+        //    return AllRows;
+        //}
+
+
+        public static List<TrafficData> ParseExcelFile(string fileLocation, int skipFirst)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            List<DayWiseData> AllRows = new List<DayWiseData>();
+            List<List<DataRow>> ListOfTypeWiseRows = new List<List<DataRow>>();
+
+            List<TrafficData> traffics = new List<TrafficData>();
 
             using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(fileLocation)))
             {
-                var myWorksheet = xlPackage.Workbook.Worksheets.First();
-                int rowCount = myWorksheet.Dimension.Rows;
-                int columnCount = myWorksheet.Dimension.Columns;
-
-                for (int rowNum = 1; rowNum <= rowCount; rowNum++)
+                int sheetCount = xlPackage.Workbook.Worksheets.Count;
+                for (int sheetIndex = 0; sheetIndex < sheetCount-1; sheetIndex++)
                 {
-                    string[] rowi = myWorksheet.Cells[rowNum, 1, rowNum, columnCount].Select(c => c.Value == null ? string.Empty : c.Value.ToString()).ToArray();
-                    if(rowi.Length < 8 || rowNum <= skipFirst)                    
-                        continue;
-                    
-                    DayWiseData data = new DayWiseData(rowi);
-                    AllRows.Add(data);
+                    var worksheet = xlPackage.Workbook.Worksheets[sheetIndex];
+                    int rowCount = worksheet.Dimension.Rows;
+                    int columnCount = worksheet.Dimension.Columns;
+                    List<DataRow> dataRows = new List<DataRow>();
+                    for (int rowNum = 1; rowNum <= rowCount; rowNum++)
+                    {
+                       string[] strRow = worksheet.Cells[rowNum, 1, rowNum, columnCount]
+                            .Select((c, ind) =>
+                                            c.Value == null ? string.Empty
+                                        : (ind == 0 ? c.Text : c.Value.ToString())).ToArray();
+                        
+                        if (strRow.Length < 8 || rowNum <= skipFirst)
+                            continue;
+                        DataRow dataRow = new DataRow(strRow);
+                        dataRows.Add(dataRow);
+                    }
+                    traffics.Add(new TrafficData()
+                                        {
+                                            Type = sheetIndex + 1,
+                                            DataRows= dataRows
+                                });
                 }
             }
-            return AllRows;
+            return traffics;
         }
+
     }
 }
