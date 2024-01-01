@@ -94,7 +94,7 @@ namespace getAllFilesFromGivenDirectory
                 string originalFile = Path.Combine(fileInfo.DirectoryName, fileInfo.Name);
                 string tmpFile = Path.Combine(targetDir, fileInfo.Name + ".tmp");
 
-                File.Copy(originalFile, tmpFile);      // file copying here
+                File.Copy(originalFile, tmpFile);      // tmp file copying here
 
                 FileInfo originalFileInfo = new FileInfo(originalFile);
                 FileInfo tempFileInfo = new FileInfo(tmpFile);
@@ -113,11 +113,6 @@ namespace getAllFilesFromGivenDirectory
         static void Main(string[] args)
         {
             string parentDir = "C:/Users/Mahathir/Desktop/test";
-            //string targetDir = "C:/Users/Mahathir/Desktop/test";
-            //getFilesInfoRecursively(parentDir);
-
-            //moveFiles(parentDir);
-
             VaultFileMover obj = new VaultFileMover("esdr", ".dat", parentDir);
             obj.moveFiles(parentDir, obj.CdrFileInfos);
         }
