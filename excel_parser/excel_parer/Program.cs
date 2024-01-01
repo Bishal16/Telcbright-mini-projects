@@ -30,6 +30,7 @@ namespace excel_pasrer
                 string deleteSql4 = $@"delete from sum_voice_day_04 where tup_starttime = '{d.Date.ToString("yyyy-MM-dd")}' and tup_inpartnerid = {d.IncomingTG} and tup_outpartnerid = {d.OutGoingTG}  and tup_switchid = {d.SwitchId};";
 
 
+
                 sqls1.Add(deleteSql1);
                 sqls2.Add(deleteSql2);
                 sqls3.Add(deleteSql3);
