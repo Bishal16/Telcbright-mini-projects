@@ -36,7 +36,7 @@ namespace excel_pasrer
         //}
 
 
-        public static List<TrafficData> ParseExcelFile(string fileLocation, int skipFirst)
+        public static List<TrafficData> ParseExcelFile(string fileLocation, int skipFirst, int multiplyby60)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             List<List<DataRow>> ListOfTypeWiseRows = new List<List<DataRow>>();
@@ -50,6 +50,7 @@ namespace excel_pasrer
                 {
                     var worksheet = xlPackage.Workbook.Worksheets[sheetIndex];
                     int rowCount = worksheet.Dimension.Rows;
+                    int switchId = int.Parse(worksheet.Name.Split('_')[0]);
                     int columnCount = worksheet.Dimension.Columns;
                     List<DataRow> dataRows = new List<DataRow>();
                     for (int rowNum = 1; rowNum <= rowCount; rowNum++)
@@ -59,16 +60,12 @@ namespace excel_pasrer
                                             c.Value == null ? string.Empty
                                         : (ind == 0 ? c.Text : c.Value.ToString())).ToArray();
                         
-                        if (strRow.Length < 8 || rowNum <= skipFirst)
+                        if (strRow.Length < 5 || strRow[0] == "" || rowNum <= skipFirst)
                             continue;
-                        DataRow dataRow = new DataRow(strRow);
+                        DataRow dataRow = new DataRow(strRow,multiplyby60, switchId);
                         dataRows.Add(dataRow);
                     }
-                    traffics.Add(new TrafficData()
-                                        {
-                                            Type = sheetIndex + 1,
-                                            DataRows= dataRows
-                                });
+                    traffics.Add(new TrafficData(sheetIndex + 1, dataRows,multiplyby60));
                 }
             }
             return traffics;

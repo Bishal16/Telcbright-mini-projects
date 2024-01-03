@@ -22,7 +22,7 @@ namespace excel_parser
         public Decimal ACD { get; set; }
         public int SwitchId { get; set; }
 
-        public DataRow(string[] row)
+        public DataRow(string[] row, int multiplyBy60, int switchId)
         {
             this.Date = parseDate(row[0]);
             this.IncomingANS = row[1].Trim();
@@ -32,9 +32,13 @@ namespace excel_parser
             this.TotalCalls = Convert.ToDecimal(row[5].Trim());
             this.SuccessfullCalls = Convert.ToDecimal(row[6].Trim());
             this.ActualDutation = Convert.ToDecimal(row[7].Trim());
-            this.BilledDuration = Convert.ToDecimal(row[8].Trim());
-            this.ACD = Convert.ToDecimal(row[9].Trim());
-            this.SwitchId = Convert.ToInt32(row[10].Trim());
+
+            var billedDuration = Convert.ToDecimal(row[8].Trim());
+            var duration = multiplyBy60 == 1 ? billedDuration * 60 : billedDuration;
+
+            this.BilledDuration = duration;
+            ///this.ACD = Convert.ToDecimal(row[9].Trim());
+            this.SwitchId = switchId;
         }
 
         private DateTime parseDate(string dt)
